@@ -1,1 +1,18 @@
-<p>dashboard works!</p>
+<div class="p-4">
+    <div class="w-full flex flex-col -mx-4">
+        <p class="text-2xl font-semibold text-center mb-6">Your Projects</p>
+        <div class="w-full grid grid-cols-2 px-4 mb-4" *ngFor="let project of paginatedProjects">
+            <div class="w-full bg-white shadow-md rounded-lg overflow-hidden">
+                <div class="p-4">
+                    <h2 class="text-xl font-bold">{{ project.title }}</h2>
+                    <p class="text-gray-600">{{ project.shortDescription }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="flex justify-center mt-4">
+            <button (click)="prevPage()" [disabled]="currentPage === 1" class="px-3 py-1 bg-gray-300 rounded mr-2">Previous</button>
+            <button *ngFor="let page of totalPages" (click)="goToPage(page)" [class.font-bold]="currentPage === page" class="px-3 py-1 bg-gray-300 rounded mx-1">{{ page }}</button>
+            <button (click)="nextPage()" [disabled]="currentPage === totalPages.length" class="px-3 py-1 bg-gray-300 rounded ml-2">Next</button>
+        </div>
+    </div>
+</div>

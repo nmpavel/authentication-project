@@ -33,6 +33,20 @@ export class AddProjectComponent {
     }
     return true;
   }
+
+  async onSubmit () {
+    if(this.validateForm(this.project)){
+      try {
+        const res = await this.apiService.postProtectedData('project', this.project);
+        if(res.statusCode===201){
+          this.router.navigateByUrl("/dashboard");
+        }
+      } catch (error) {
+        console.error('Error fetching data', error);
+      }
+    }
+  }
+
 }
 
 export class Project {

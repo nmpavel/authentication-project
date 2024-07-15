@@ -35,9 +35,10 @@ export class RegisterComponent {
     if(this.validateForm(this.userObj)){
       try {
         const res = await this.apiService.postData('auth/register', this.userObj);
-        if(res.token){
+        console.log(res)
+        if(res.statusCode===201){
           this.router.navigateByUrl("/dashboard");
-          localStorage.setItem("token",res.token);
+          localStorage.setItem("token",res.data.token);
         }
       } catch (error) {
         console.error('Error fetching data', error);

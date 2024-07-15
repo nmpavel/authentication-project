@@ -11,7 +11,14 @@ export class ApiService {
 
   async getData(endpoint: string): Promise<any> {
     try {
-      const response = await axios.get(`${this.baseUrl}/${endpoint}`);
+      let config = {
+        method: 'GET',
+        url: `${this.baseUrl}/${endpoint}`,
+        headers: {
+            'Authorization': authHeader()
+        }
+    };
+      const response = await axios(config);
       return response.data;
     } catch (error) {
       console.error('Error fetching data', error);
@@ -27,4 +34,30 @@ export class ApiService {
       throw error;
     }
   }
+
+  async postProtectedData(endpoint:string, data:any) {
+    try {
+        let config = {
+            method: 'POST',
+            url: `${this.baseUrl}/${endpoint}`,
+            data: data,
+            headers: {
+                'Authorization': authHeader(),
+                'Content-Type': 'application/json',
+            }
+        };
+        const response = await axios(config);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}
+}
+
+function authHeader() {
+  const token = localStorage.getItem('token');
+  if (token) {
+      return `Bearer ${token}`;
+  }
+  return '';
 }

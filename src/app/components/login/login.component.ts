@@ -58,6 +58,6 @@ export class User {
     this.email="",
     this.password="",
     this.phone="",
-    this.userType="customer"
+    this.userType="admin"
   }
 }
